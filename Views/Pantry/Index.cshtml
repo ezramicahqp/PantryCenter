@@ -4,12 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
+<style>
+    body {
+        background-color: rgb(230, 255, 204);
+    }
+</style>
+
+<h1>Shelf</h1>
+
+<body>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add an Item</a> 
 </p>
-<table class="table">
+<table  class="table">
     <thead>
         <tr>
             <th>
@@ -45,3 +53,8 @@
 }
     </tbody>
 </table>
+
+<p>
+        <a asp-action="Index" asp-controller="Cat">Visit pantry corner for a surprise!</a>
+</p>
+</body>

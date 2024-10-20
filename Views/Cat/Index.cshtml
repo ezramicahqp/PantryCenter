@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PantryCenter.Models.Cats>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width:50%;
+    }
+
+    body {
+        background-color: rgb(230, 255, 204);
+    }
+
+</style>
+
+<h1 style="text-align:center;">This lucky cat will bless you today!</h1>
+
+<p>
+    
+</p>
+<body>  
+@foreach (var item in Model)
+{
+    <img src="@item.Url" alt="Cat image" />
+}
+ </body>           
+
+
