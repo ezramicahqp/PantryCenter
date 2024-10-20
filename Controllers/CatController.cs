@@ -1,82 +1,64 @@
-﻿using PantryCenter.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Text;
+using PantryCenter.Models;
 
 namespace PantryCenter.Controllers
 {
-    public class PantryController : Controller
+    public class CatController : Controller
     {
-        // GET: PantryController
-       
+        // GET: CatController
         public async Task<ActionResult> Index()
         {
-            string apiUrl = "https://localhost:7050/api/PantryInventoryAPI";
+            string apiUrl = "https://api.thecatapi.com/v1/images/search";
 
-            List<Shelves> shelves = new List<Shelves>();
+            List<Cats> cats = new List<Cats>();
 
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                 var result = await response.Content.ReadAsStringAsync();
-                shelves = JsonConvert.DeserializeObject<List<Shelves>>(result);
+                cats = JsonConvert.DeserializeObject<List<Cats>>(result);
             }
 
-            foreach (var shelf in shelves)
-            {
-                shelf.ItemName = shelf.ItemName?.ToLower();
-                shelf.ItemType = shelf.ItemType?.ToLower();
-            }
-
-
-            return View(shelves);
+            return View(cats);
         }
 
-        // GET: PantryController/Details/5
+        // GET: CatController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: PantryController/Create
+        // GET: CatController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        
-        // POST: AccountController/Create
+        // POST: CatController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Shelves shelves)
+        public ActionResult Create(IFormCollection collection)
         {
-            string apiUrl = "https://localhost:7050/api/PantryInventoryAPI";
-            using (HttpClient client = new HttpClient())
+            try
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(shelves), Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(apiUrl, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                return RedirectToAction(nameof(Index));
             }
-            return View(shelves);
+            catch
+            {
+                return View();
+            }
         }
 
-
-
-
-        // GET: PantryController/Edit/5
+        // GET: CatController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: PantryController/Edit/5
+        // POST: CatController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -91,13 +73,13 @@ namespace PantryCenter.Controllers
             }
         }
 
-        // GET: PantryController/Delete/5
+        // GET: CatController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: PantryController/Delete/5
+        // POST: CatController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
